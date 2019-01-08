@@ -1,0 +1,18 @@
+ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+Project -1 Report
+ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ1. Basic information : 	Student ID : 68923829Student Name : Ishita AcharyaOS (bit) : 64 bit OS X El Capitan version 10.11.6gcc version : 4.2.12. Internal Record Format- Show your record format design and describe how your design satisfies O(1) field access. If not, just mention that you haven't implemented this feature.- Describe how you store a VarChar field.The internal record consists for 3 parts:a. Null Indicatorb. Location Directory c. Dataa. Null Indicator : This field shows null values (if there is any) in binary. If bit is 1 then there is  null, otherwise data is present. Each ith bit shows if the ith corresponding value is NULL or not. It is stored as a sequence of Bytes.b. Location Directory : This contains the offsets for values in the data field. The ith field in the array will store the location of the ith data in the record.c. Data : This field contains the actual data. There are NO NULL values in this field. The VarChar is stored with the size of it followed by the actual data.Since the location directory has offsets for each data field, it will take a constant time for accessing the data and thus satisfies the O(1) efficiency criteria.3. Page Format- Show your page format designEach page is of size 4096 (given). The data/records are stored in the first free available space. Every page has 2 counters for storing a. Number of Recordsb. Pointer to the free spaceThese two counters are followed by a directory containing the location and length of each record. Thus, records and this directory grows in opposite direction.
++ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ-+|Page free space..     |	|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
+|                      |
++ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ-+
+|slot directory    |N|F| 
++ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ-+ 4. Implementation Detail- Other implementation details goes hereRecordBasedFileManager calls functions of PagedFileManager(PFM). It is used to create, destroy, open and close files. Whenever the record is to be insterted, the insertRecord() function is being invoked. Here, firstly the null bits are extracted from the null bit indicator array and the record is formatted for inserting it to page. This function then scans the file to find the first available page that has enough space to store the total data. Then a pointer shall take the value stored in ÒFÓ (free space offset) and add the record at that location. Also, ÒNÓ (number of record) is incremented and the directory gets one more entry for storing length and offset for each record. If there are no pages in the file OR if there is no free space in any of the available pages, a new page is appended and the values ÒFÓ & ÒNÓ are set to zero. The records are then added in the manner stated above.

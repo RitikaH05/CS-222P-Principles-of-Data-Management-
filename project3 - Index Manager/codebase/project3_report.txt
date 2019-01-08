@@ -1,0 +1,51 @@
+1. Basic information
+Team number (e.g., 01) : 29
+#1 Student ID : 68923829
+#1 Student Name : Ishita Acharya
+#2 Student ID : 11372208
+#2 Student Name : Shweta Kumari
+OS (bit) : 64 bit OS X El Capitan version 10.11.6
+gcc version : 4.2.1
+
+2. Meta-data page in an index file
+- Show your meta-data page of an index design if you have any.
+In the index structure implemented, there is no need for a meta-data page.
+ 
+
+3. Index Entry Format
+- Show your index entry design (structure). 
+Non-Leaf Node - In all the internal nodes, <PageID,key,PageID> are stored. The PageID will be the pointers to child-nodes.
+Leaf Node - In all the leaf Nodes, indexing is done using <key, List of RIDs>. 
+
+4. Page Format
+- Show your internal-page (non-leaf node) design.
+
+In every internal page, below information is stored:
+a. Node Type - Type of node is stored (leaf/non-leaf)
+b. Free Space Pointer - This value stores the offset of free space inside the page.
+c. Number of Keys - Counter of total number of keys present in the page.
+
+- Show your leaf-page (leaf node) design.
+
+In every leaf-page, below information is stored:
+a. Node Type - Type of node is stored (leaf/non-leaf)
+b. Free Space Pointer - This value stores the offset of free space inside the page.
+c. Number of Keys - Counter of total number of keys present in the page.
+d. Next Leaf Location - These are the pointers to the sibling leaf nodes.
+
+5. Implementation Detail
+- Have you added your own source file (.cc or .h)? No
+
+- Have you implemented non-lazy deletion? Choose Yes or No: No 
+
+- Have you implemented duplicated key handling that can span multiple pages? Choose Yes or No: No
+  If yes, please explain briefly how you have implemented this feature.
+
+- Other implementation details:
+a. Duplicate keys - Duplicates are handled by maintaining a list of RIDs for any particular (duplicate) key.
+b. PrintBTree() is implemented in pre-order and is in JSON format.
+c. Lazy Deletion is followed without merging the half-filled nodes.
+
+6. Other (optional)
+- Freely use this section to tell us about things that are related to the project 3, but not related to the other sections (optional)
+
